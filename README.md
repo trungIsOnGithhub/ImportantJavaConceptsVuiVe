@@ -1,4 +1,7 @@
-# Java & Related Concepts 
+# Java & Related Concepts
+
+> I forked myself a version and run in Java Oracle JDK 17.0.8 LTS
+
 ![java banner](https://user-images.githubusercontent.com/2780145/109359092-dcda4e80-78aa-11eb-894b-935336d29af1.png)
 
 **This Repo contains Notes and Programs on following topics :**
