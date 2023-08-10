@@ -1,45 +1,27 @@
-// A Naive recursive Java solution for Edit Distance
-// to find minimum number operations to convert str1 to str2
-class EDIST
-{
-	static int min(int x,int y,int z)
-	{
-		if (x<=y && x<=z) return x;
-		if (y<=x && y<=z) return y;
-		else return z;
-	}
+class Solution {
+	// problem statement and judging: https://leetcode.com/problems/edit-distance
+    public int minDistance(String word1, String word2) {
+        int n1 = word1.length(), n2 = word2.length();
 
-	static int editDist(String str1 , String str2 , int m ,int n)
-	{
-		// If first string is empty, the only option is to
-	// insert all characters of second string into first
-	if (m == 0) return n;
-	
-	// If second string is empty, the only option is to
-	// remove all characters of first string
-	if (n == 0) return m;
-	
-	// If last characters of two strings are same, nothing
-	// much to do. Ignore last characters and get count for
-	// remaining strings.
-	if (str1.charAt(m-1) == str2.charAt(n-1))
-		return editDist(str1, str2, m-1, n-1);
-	
-	// If last characters are not same, consider all three
-	// operations on last character of first string, recursively
-	// compute minimum cost for all three operations and take
-	// minimum of three values.
-	return 1 + min ( editDist(str1, str2, m, n-1), // Insert
-					editDist(str1, str2, m-1, n), // Remove
-					editDist(str1, str2, m-1, n-1) // Replace					 
-				);
-	}
+        if(n1==0)
+            return n2;
+        if(n2==0)
+            return n1;
 
-	public static void main(String args[])
-	{
-		String str1 = "sunday";
-		String str2 = "saturday";
+        int dp[][]=new int[n1+1][n2+1];
 
-		System.out.println( editDist( str1 , str2 , str1.length(), str2.length()) );
-	}
+        for(int i=0;i<=n1;i++){
+            for(int j=0;j<=n2;j++){
+                if( i==0 )
+					dp[i][j] = j;
+                else if( j==0 )
+					dp[i][j]=i;
+                else if( word1.charAt(i-1) == word2.charAt(j-1) )
+					dp[i][j] = dp[i-1][j-1];
+                else
+					dp[i][j] = Math.min( dp[i-1][j-1], Math.min( dp[i-1][j],dp[i][j-1] ) ) + 1;
+            }
+        }
+        return dp[n1][n2];
+    }
 }
